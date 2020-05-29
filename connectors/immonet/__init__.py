@@ -7,6 +7,7 @@ import asyncio
 import storage
 from datetime import datetime
 from bs4 import BeautifulSoup
+import time
 
 from connectors.connector import Connector
 
@@ -37,17 +38,19 @@ class ImmonetConnector(Connector):
 
     async def fetch_articles(self, url, fetch_min, fetch_max):
         while True:
-            print("FETCHING!")
+            print("fetching immonet!")
             page = requests.get(url)
             data = storage.get_storage()
             soup = BeautifulSoup(page.content, 'html.parser')
             articles = soup.find_all("div", {"id": re.compile("^selObject_\\d*")})
             flats = [build_flat(article) for article in articles]
+            flats.reverse()
             for flat in flats:
                 if flat['exposeId'] not in data:
                     data[flat['exposeId']] = {"storage": flat,
                                               "date_time": datetime.now(tzlocal.get_localzone()).strftime(
                                                   "%Y-%m-%d %H:%M:%S %z")}
-                    telegram.send_flat(flat)
                     storage.set_storage(data)
+                    time.sleep(random.randint(1, 5))
+                    telegram.send_flat(flat)
             await asyncio.sleep(random.randint(450, 750))
