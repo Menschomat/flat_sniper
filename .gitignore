@@ -203,5 +203,5 @@ dmypy.json
 .pyre/
 
 /config/config_default.yaml
-/storage.json
+/storage/storage.json
 /build_image.bat

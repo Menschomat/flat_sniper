@@ -1,5 +1,5 @@
 port: 8080
-storage: ./storage.json
+storage: ./storage/storage.json
 immoscout:
   fetch_time_min: 450
   fetch_time_max: 750

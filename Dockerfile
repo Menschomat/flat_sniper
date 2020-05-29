@@ -1,9 +1,13 @@
 FROM python:3.8-alpine
 
+ENV PYTHONPATH "${PYTHONPATH}:/flatsniper"
+ENV PYTHONUNBUFFERED=TRUE
+
 WORKDIR /flatsniper
-ADD . /flatsniper
-RUN pip3 install --no-cache-dir pipenv &&\
-    pipenv install --deploy --clear --ignore-pipfile
+COPY Pipfile Pipfile.lock /flatsniper/
+RUN pip install --no-cache-dir 'pipenv==2018.11.26' && pipenv install --system --deploy
+RUN mkdir data
+COPY . /flatsniper
 EXPOSE 8080
 
-CMD [ "pipenv","run", "python", "app.py"]
+CMD ["python", "app.py"]

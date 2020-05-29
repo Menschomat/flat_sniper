@@ -17,7 +17,7 @@ A config should look like this:
 port: 8080
 storage: ./storage.json
 immoscout:
-  fetch_time_min: 450 // The sheduler fetches data in an random-intervall. It uses a random timespan between min and max, so your requests look more human-like!
+  fetch_time_min: 450 // The sheduler fetches storage in an random-intervall. It uses a random timespan between min and max, so your requests look more human-like!
   fetch_time_max: 750
   urls:
     - "https://www.immobilienscout24.de/Suche/radius/wohnung-mieten?centerofsearchaddress=Bochum;44892;Ovelackerstra%C3%9Fe;;;Langendreer&numberofrooms=5.0-&geocoordinates=51.47285;7.32158;10.0&sorting=2&enteredFrom=result_l
